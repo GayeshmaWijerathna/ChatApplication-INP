@@ -1,14 +1,21 @@
 package controller;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -23,6 +30,8 @@ public class ClientFormController extends Thread {
     PrintWriter writer;
     Socket socket;
 
+    private FileChooser fileChooser;
+    private File filePath;
 
     public void initialize() throws IOException {
         String userName=LoginFormController.name;
@@ -71,6 +80,48 @@ public class ClientFormController extends Thread {
                 }
 
 
+                if (firstChars.equalsIgnoreCase("img")) {
+                    //for the Images
+
+                    st = st.substring(3, st.length() - 1);
+
+
+                    File file = new File(st);
+                    Image image = new Image(file.toURI().toString());
+
+                    ImageView imageView = new ImageView(image);
+
+                    imageView.setFitHeight(150);
+                    imageView.setFitWidth(200);
+
+
+                    HBox hBox = new HBox(10);
+                    hBox.setAlignment(Pos.BOTTOM_RIGHT);
+
+
+                    if (!cmd.equalsIgnoreCase(userName.getText())) {
+
+                        vbox_messages.setAlignment(Pos.TOP_LEFT);
+                        hBox.setAlignment(Pos.CENTER_LEFT);
+
+
+                        Text text1 = new Text("  " + cmd + " :");
+                        hBox.getChildren().add(text1);
+                        hBox.getChildren().add(imageView);
+
+                    } else {
+                        hBox.setAlignment(Pos.BOTTOM_RIGHT);
+                        hBox.getChildren().add(imageView);
+                        Text text1 = new Text(": Me ");
+                        hBox.getChildren().add(text1);
+
+
+                    }
+
+                    Platform.runLater(() -> vbox_messages.getChildren().addAll(hBox));
+
+
+                } else {
 
                     TextFlow tempFlow = new TextFlow();
 
@@ -87,11 +138,11 @@ public class ClientFormController extends Thread {
                     }
 
                     tempFlow.getChildren().add(text);
-                    tempFlow.setMaxWidth(200); //200
+                    tempFlow.setMaxWidth(200);
 
                     TextFlow flow = new TextFlow(tempFlow);
 
-                    HBox hBox = new HBox(12); //12
+                    HBox hBox = new HBox(12);
 
 
 
@@ -102,7 +153,7 @@ public class ClientFormController extends Thread {
                         vbox_messages.setAlignment(Pos.TOP_LEFT);
                         hBox.setAlignment(Pos.CENTER_LEFT);
                         hBox.getChildren().add(flow);
-                        hBox.setPadding(new Insets(5,5,5,10));
+                        hBox.setPadding(new Insets(2,5,2,10));
 
                     } else {
 
@@ -121,10 +172,11 @@ public class ClientFormController extends Thread {
 
                     Platform.runLater(() -> vbox_messages.getChildren().addAll(hBox));
                 }
-            } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+            }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendmsgOnAction(ActionEvent actionEvent) {
@@ -139,11 +191,19 @@ public class ClientFormController extends Thread {
     }
 
     public void ImageMouseClicked(MouseEvent mouseEvent) {
-
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Image");
+        this.filePath = fileChooser.showOpenDialog(stage);
+        writer.println(userName.getText() + " " + "img" + filePath.getPath());
     }
 
     public void entersend(ActionEvent actionEvent) {
         btn_send.fire();
+    }
+
+    public void EmojiOnAction(MouseEvent mouseEvent) {
+
     }
 }
 

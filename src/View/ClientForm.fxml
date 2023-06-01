@@ -44,7 +44,7 @@
                 <Font name="System Italic" size="12.0" />
             </font>
         </Label>
-      <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="41.0" layoutY="376.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="41.0" layoutY="376.0" onMouseClicked="#EmojiOnAction" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Assets/Images/Imoji.png" />
          </image>
