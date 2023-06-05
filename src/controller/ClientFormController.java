@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.charset.Charset;
 
 public class ClientFormController extends Thread {
     public Label userName;
@@ -203,7 +204,12 @@ public class ClientFormController extends Thread {
     }
 
     public void EmojiOnAction(MouseEvent mouseEvent) {
-
+        byte[] emojiByteCode = new byte[]{(byte) 0xF0, (byte) 0x9F, (byte) 0x98, (byte) 0x81};
+        String emoji = new String(emojiByteCode,Charset.forName("UTF-8"));
+        txtTyping.appendText("\uD83D\uDE03");
+        txtTyping.appendText("\uD83A\uDD2D");
+        txtTyping.appendText("\uD83D\uDE34");
+        txtTyping.setText(txtTyping.getText()+" "+emoji);
     }
 }
 
