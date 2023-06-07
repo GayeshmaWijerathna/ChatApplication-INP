@@ -2,13 +2,17 @@ package controller;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -19,12 +23,14 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.util.Objects;
 
 public class ClientFormController extends Thread {
     public Label userName;
     public VBox vbox_messages;
     public TextField txtTyping;
     public Button btn_send;
+    public AnchorPane EmojiPane;
 
 
     BufferedReader reader;
@@ -38,7 +44,7 @@ public class ClientFormController extends Thread {
         String userName=LoginFormController.name;
         this.userName.setText(userName);
         try {
-            socket = new Socket("localhost", 4000);
+            socket = new Socket("localhost", 6000);
             System.out.println("Socket is connected with server!");
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new PrintWriter(socket.getOutputStream(), true);
@@ -203,14 +209,105 @@ public class ClientFormController extends Thread {
         btn_send.fire();
     }
 
-    public void EmojiOnAction(MouseEvent mouseEvent) {
-        byte[] emojiByteCode = new byte[]{(byte) 0xF0, (byte) 0x9F, (byte) 0x98, (byte) 0x81};
-        String emoji = new String(emojiByteCode,Charset.forName("UTF-8"));
-        txtTyping.appendText("\uD83D\uDE00");
-//        txtTyping.appendText("\uD83A");
-        txtTyping.appendText("\uD83D\uDE34");
-        txtTyping.setText(txtTyping.getText()+" "+emoji);
+    public void EmojiOnAction(MouseEvent mouseEvent) throws IOException {
+            EmojiPane.setVisible(true);
+//        byte[] emojiByteCode = new byte[]{(byte) 0xF0, (byte) 0x9F, (byte) 0x98, (byte) 0x81};
+//        String emoji = new String(emojiByteCode,Charset.forName("UTF-8"));
+//        txtTyping.appendText("\uD83D\uDE00");
+////      txtTyping.appendText("\uD83A");
+//        txtTyping.appendText("\uD83D\uDE34");
+//        txtTyping.setText(txtTyping.getText()+" "+emoji);
 
+    }
+
+    public void Heart(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128525));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void sadMood(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128546));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void normalMood(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars( 128522));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void Hehe(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128513));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void ToungOut(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128539));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void sick(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128560));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void Hiks(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128540));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void soSad(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128554));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void haha(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128514));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void Emotional(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128578));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void bad(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128543));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void money(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(129297));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void satisfied(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128519));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void ohh(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128550));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
+    }
+
+    public void wow(MouseEvent mouseEvent) {
+        String emoji = new String(Character.toChars(128559));
+        txtTyping.setText(emoji);
+        EmojiPane.setVisible(false);
     }
 }
 
